@@ -1,22 +1,14 @@
 #! /bin/bash
 
-# Condicion #
-	if [ $# -ne 0 ]; then
-		clear
-		echo "Doesn't need arguments"
-		exit 1
-	fi
 
+# Variables #
+	TEMP=/tmp/ejer6.txt
 
-# Varibles #
-	USERS_FILE=/etc/passwd
-	USERS=$(sort $USERS_FILE | cut -d ":" -f1,3,6,7)
-
+	echo "Usuarios:directorio:shell" >> $TEMP
+	echo "--------:----------:-----" >> $TEMP
+	sort /etc/passwd | cut -d ":" -f1,6,7 >> $TEMP
 
 # Mostrar por pantalla #
 	clear
-	for X in $USERS; do
-		if [ $(echo $X | cut -d ":" -f2) -ge 1000 ]; then
-			echo $X
-		fi
-	done
+	cat $TEMP | column -s ":" -t
+	rm $TEMP
